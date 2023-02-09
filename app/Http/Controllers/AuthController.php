@@ -207,7 +207,7 @@ class AuthController extends Controller
  
    
  
-         return Redirect('login');
+         return Redirect('login-client');
  
      }
 }

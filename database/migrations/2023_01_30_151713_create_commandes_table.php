@@ -19,12 +19,13 @@ class CreateCommandesTable extends Migration
             $table->string('name');
             $table->string('detail')->nullable();
             $table->integer('qt');
+            $table->integer('user_id')->unsigned();
             $table->integer('qyt')->nullable();
-            $table->string('clientid');
             $table->integer('prix');
             $table->boolean('statut')->default(0);
             $table->integer('idprod');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

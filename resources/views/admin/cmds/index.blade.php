@@ -51,7 +51,7 @@
 
             <th>client</th>
             <th>Nom</th>
-            <th>Desc</th>
+        
             <th>Prix</th>
             <th>Qty</th>
             <th>statut</th>
@@ -65,7 +65,7 @@
         <tr>         
             <td>{{ $client->clientid }}</td>
             <td>{{ $client->name }}</td>
-            <td>{{ $client->detail }}</td>
+          
             <td>{{ $client->prix }}</td>
             <td>{{ $client->qt }}</td>
             <td>
@@ -80,7 +80,7 @@
             </td>
             <td>  
                 
-                 <form action="{{route('admin.destroy',$client->id) }}" method="POST">  
+                 <form action="{{route('cmd.destroy',$client->id) }}" method="POST">  
                     @csrf
 
                     @method('DELETE')
@@ -90,7 +90,7 @@
                     <button type="submit" class="btn btn-danger">Supp</button>
                @endif
                 </form>
-                 <a class="btn btn-info" href="{{ route('cmd.delete',$client->id) }}">supp</a>
+               
         
         
             </td>

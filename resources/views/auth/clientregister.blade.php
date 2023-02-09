@@ -1,6 +1,8 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('content')
-
+<br>
+<br>
+<br>
 <main class="login-form">
 
   <div class="cotainer">
@@ -13,7 +15,7 @@
 
                   <div class="card-header">Register</div>
 
-                  <div class="card-body">
+                  <div class="card-body ">
 
                       <form action="{{ route('register.post') }}" method="POST">
 
@@ -23,7 +25,7 @@
 
                               <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                              <div class="col-md-6">
+                              <div class="col-md-6 py-3">
 
                                   <input type="text" id="name" class="form-control" name="name" required autofocus>
 
@@ -41,7 +43,7 @@
 
                               <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
-                              <div class="col-md-6">
+                              <div class="col-md-6  py-3">
 
                                   <input type="text" id="email_address" class="form-control" name="email" required autofocus>
 
@@ -59,7 +61,7 @@
 
                               <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-                              <div class="col-md-6">
+                              <div class="col-md-6  py-3">
 
                                   <input type="password" id="password" class="form-control" name="password" required>
 
@@ -73,7 +75,40 @@
 
                           </div>
 
-  
+                          <div class="form-group row">
+
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Tel</label>
+
+                                <div class="col-md-6  py-3">
+
+                                    <input type="number" id="tel" class="form-control" name="tel" required>
+
+                                    @if ($errors->has('tel'))
+
+                                        <span class="text-danger">{{ $errors->first('tel') }}</span>
+
+                                    @endif
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Adress</label>
+
+                                <div class="col-md-6  py-3">
+
+                                    <input type="text" id="adresse" class="form-control" name="adresse" required>
+
+                                    @if ($errors->has('adresse'))
+
+                                        <span class="text-danger">{{ $errors->first('adresse') }}</span>
+
+                                    @endif
+
+                                </div>
+
+                            </div>
 
                           <div class="form-group row">
 
@@ -96,9 +131,9 @@
 
   
 
-                          <div class="col-md-6 offset-md-4">
+                          <div class=" offset-md-4">
 
-                              <button type="submit" class="btn btn-primary">
+                              <button type="submit" class="btn btn-primary  btn btn-block">
 
                                   Register
 

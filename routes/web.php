@@ -17,16 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
-Route::get('/', function () {
-    return view('auth.clientlogin');
-});
+Route::get('/', [App\Http\Controllers\ProductController::class,'index'] )->name('product-list');
 
 Route::get('/Admin00221', function () {
     return view('auth.login');
 });
 
 Route::group(['middleware' => ['auth','admin']], function () {
-   
 Route::delete('/admindelete/{id}', [App\Http\Controllers\AdminController::class,'destroy'] )->name('admin.destroy');
 Route::get('/admincreate', [App\Http\Controllers\AdminController::class,'create'] )->name('admin.create');
 Route::get('/adminedit/{id}', [App\Http\Controllers\AdminController::class,'edit'] )->name('admin.edit');
@@ -55,11 +52,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // ROUTE CLIENT----------------------------------------------------------------
-Route::resource('clients', App\Http\Controllers\ClientController::class );
+// Route::resource('clients', App\Http\Controllers\ClientController::class );
 
-Route::get('/clientslogin',[App\Http\Controllers\ClientController::class , 'login'])->name('clientslogin');
+// Route::get('/clientslogin',[App\Http\Controllers\ClientController::class , 'index'])->name('clientslogin');
 
-Route::post('/loginclients',[App\Http\Controllers\ClientController::class , 'loginclients'])->name('loginclients');
+// Route::post('/loginclients',[App\Http\Controllers\ClientController::class , 'loginclients'])->name('loginclients');
 
 Route::get('login-client', [App\Http\Controllers\AuthController::class, 'index'])->name('login-client');
 

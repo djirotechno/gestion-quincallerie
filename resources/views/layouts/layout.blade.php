@@ -1,52 +1,106 @@
-<!DOCTYPE html>
-
-<html>
-
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Quicallerie General Tech</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{asset('css/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <title>{{ config('app.name', 'QGT') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/prodcss.css') }}" rel="stylesheet">
 </head>
-
 <body>
-     
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"> <h2>Quicallerie General Tech</h2></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('products.index')}}"><h3>produit</h3> <span class="sr-only"></span></a>
-      </li>
-      <li class="nav-item">
-        @if(Auth::user()->role == 'admin' || 'agent')
-        <a class="nav-link" href="{{route('vente.index')}}"><h3>vente</h3></a>
-        @endif
-       
-      </li>
-      <li class="nav-item">
-      @if (Auth::user()->role == 'admin' || 'agent')
-        <a class="nav-link" href="#"><h3>client</h3></a>
-        @endif
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light navbar-fix bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'QRT') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-      </li>
-    </ul>
-  </div>
-</nav>
-<div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
 
-    @yield('content')
+                    </ul>
 
-</div>
+                    <!-- Right Side Of Navbar -->
+
+                    <ul class="navbar-nav ms-auto">
+                        @if(Auth::check())
+                        <a href="{{route('cart.list')}}" class="badge  text-white ms-1 rounded-pill">
+                        <button type="submit" class="btn btn-info">
+                            Panier <span class="badge badge-light" style="text-color:red">
+                            {{ Cart::getTotalQuantity()}}
+                            </span>
+                        </button>
+                        </a>
+                        @endif
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login-client'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login-client')}}">Login</a>
+                                </li>
+                           
+                                @endif
+                            @if(Route::has('register-client'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register-client') }}">Register</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    @if(Auth::user()->role === 'admin' && 'agent')
+                                    <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                       Produits
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('cmd.index') }}">
+                                       Commandes
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('products.index') }}">
+                                       Boutique
+                                    </a>
+                                   @endif
+                                </div>
+                                
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container">
+            @yield('content')
+        </main>
+    </div>
+    <script> src="{{asset('css/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
-
-
-<div>
-        <script> src="{{asset('css/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-    
-       
-   </div>
 </html>

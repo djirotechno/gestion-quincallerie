@@ -1,4 +1,5 @@
-@extends('layouts.app')
+
+@extends('layouts.layout')
 @section('content')
    
 
@@ -27,7 +28,7 @@
            
                               
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
-                @foreach ($products as $product)
+                @foreach($products as $product)
 
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -71,6 +72,6 @@
                 </div>
 
         
-            
+           
         </section>
 @endsection

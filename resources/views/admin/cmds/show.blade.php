@@ -64,11 +64,11 @@
 </div>
 <div class="col-sm-6 ">
 <h5 class="mb-3">To:</h5>
-<h3 class="text-dark mb-1">{{ $client->name }}</h3>
-<div>478, Nai Sadak</div>
-<div>Chandni chowk, New delhi, 110006</div>
+<h3 class="text-dark mb-1">Nom:{{ $client->name }}</h3>
+<div>Adresse:{{$client->adresse}}</div>
+
 <div>Email:{{ $client->email}}</div>
-<div>Phone: +91 9895 398 009</div>
+<div>Phone:{{$client->tel}}</div>
 </div>
 </div>
 <div class="table-responsive-sm">
@@ -86,12 +86,12 @@
 <tbody>
 @foreach ($cmduser as $cmd)
 <tr>
-<td class="center">2</td>
+<td class="center">{{$cmd->idprod}}</td>
 <td class="left">{{ $cmd->name }}</td>
 <td class="left">{{ $cmd->detail}}</td>
 <td class="right">{{$cmd->prix}}</td>
 <td class="center">{{ $cmd->qt}}</td>
-<td class="right">{{ $cmd->prix * (int)$cmd->qt}}</td>
+<td class="right">{{ $cmd->qyt}}</td>
 </tr>
 @endforeach
 </tbody>

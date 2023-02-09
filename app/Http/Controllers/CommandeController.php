@@ -45,7 +45,7 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user()->id;
+        $user = Auth::user();
         $items = \Cart::getContent();
         // dd($items);
         foreach($items as $row) {
@@ -57,7 +57,9 @@ class CommandeController extends Controller
                 'idprod' => $row->id,
                 'prix' => $row->price,
                 'qyt' => \Cart::getTotal(),
-                'clientid' => $user,
+                'clientid' => $user->id,
+                'adresse' => $user->adresse,
+                'tel' => $user->tel,
                 
                
             ]);
@@ -110,15 +112,24 @@ class CommandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update($id,)
     {
-        Commande::where('clientid',$id)->update(['statut'=>1]);
-       $prod =  Product::all();
+        // $cmdvalide =   Commande::where('clientid',$id);
+        // dd($cmdvalide->id);
+        // $cmdvalide->update(['statut'=>1]);
+
+     
+        dd($cmd);
+
+        // $cmdvalide =   Product::where('id',$id);
+       
+       
+           
+
         
-        // dd($prod);
-   foreach($prod as $prd){
-        
-   }
+       
+
+        // $tabcmd = Product::latest()->get(); as
 
         return redirect()->route('cmd.index')->with('success','commande  validee !');
 
@@ -133,5 +144,11 @@ class CommandeController extends Controller
     public function destroy($id)
     {
         //
+        $cmd = Commande::findOrFail($id);
+        $cmd->delete();
+    
+
+        return redirect()->route('cmd.index')->with('success','commande  suprimer !');
+
     }
 }
