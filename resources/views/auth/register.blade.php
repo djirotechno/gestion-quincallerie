@@ -74,7 +74,40 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
 
+<label for="password" class="col-md-4 col-form-label text-md-right">Tel</label>
+
+<div class="col-md-6  py-3">
+
+    <input type="number" id="tel" class="form-control" name="tel" required>
+
+    @if ($errors->has('tel'))
+
+        <span class="text-danger">{{ $errors->first('tel') }}</span>
+
+    @endif
+
+</div>
+
+</div>
+<div class="form-group row">
+
+<label for="password" class="col-md-4 col-form-label text-md-right">Adress</label>
+
+<div class="col-md-6  py-3">
+
+    <input type="text" id="adresse" class="form-control" name="adresse" required>
+
+    @if ($errors->has('adresse'))
+
+        <span class="text-danger">{{ $errors->first('adresse') }}</span>
+
+    @endif
+
+</div>
+
+</div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

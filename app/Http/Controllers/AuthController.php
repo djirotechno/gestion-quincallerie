@@ -108,12 +108,11 @@ class AuthController extends Controller
          $request->validate([
  
              'name' => 'required',
- 
              'email' => 'required|email|unique:users',
- 
              'password' => 'required|min:6',
-
-             'role' => 'required'
+             'role' => 'required',
+             'tel' => 'required',
+             'adresse' => 'required',
 
  
          ]);
@@ -179,6 +178,8 @@ class AuthController extends Controller
          'name' => $data['name'],
  
          'email' => $data['email'],
+         'tel' => $data['tel'],
+         'adresse' => $data['adresse'],
  
          'password' => Hash::make($data['password']),
          'role' => $data['role']

@@ -47,7 +47,8 @@ class CommandeController extends Controller
     {
         $user = Auth::user();
         $items = \Cart::getContent();
-        // dd($items);
+        // $total = \Cart::getTotal();
+        //  dd($items);
         foreach($items as $row) {
 
             Commande::create([
@@ -56,10 +57,10 @@ class CommandeController extends Controller
                 'detail' => $row->detail,
                 'idprod' => $row->id,
                 'prix' => $row->price,
-                'qyt' => \Cart::getTotal(),
-                'clientid' => $user->id,
+                'user_id' => $user->id,
                 'adresse' => $user->adresse,
                 'tel' => $user->tel,
+                'qyt' => \Cart::getTotal(),
                 
                
             ]);
@@ -82,13 +83,11 @@ class CommandeController extends Controller
     public function show($id)
     {
        
-      
-
          $cmd =  \DB::table('commandes')->find($id);
-        $client = \DB::table('users')->find($cmd->clientid);
-        $cmduser = Commande::where('clientid',$client->id)->get();
-        
-        // dd($cmduser);
+        $client = \DB::table('users')->find($cmd->user_id);
+        $cmduser = Commande::where('user_id',$client->id)->get();
+        // $usehet =  \Cart::getTotal()
+        // dd($usehet);
         
 
         return view('admin.cmds.show',compact('cmduser','client'),);
@@ -114,21 +113,16 @@ class CommandeController extends Controller
      */
     public function update($id,)
     {
-        // $cmdvalide =   Commande::where('clientid',$id);
-        // dd($cmdvalide->id);
-        // $cmdvalide->update(['statut'=>1]);
+        $cmdtable = Commande::all();
+        foreach($cmdtable as $cmd){
+            $cmdvalide =   Commande::where($cmd->id,$id);
+            // dd($cmdvalide->id);
+            $cmdvalide->update(['statut'=> 1]);
+        }
+     ;
 
-     
-        dd($cmd);
-
+        // dd($cmd);
         // $cmdvalide =   Product::where('id',$id);
-       
-       
-           
-
-        
-       
-
         // $tabcmd = Product::latest()->get(); as
 
         return redirect()->route('cmd.index')->with('success','commande  validee !');

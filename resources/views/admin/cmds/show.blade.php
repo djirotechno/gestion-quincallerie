@@ -91,7 +91,7 @@
 <td class="left">{{ $cmd->detail}}</td>
 <td class="right">{{$cmd->prix}}</td>
 <td class="center">{{ $cmd->qt}}</td>
-<td class="right">{{ $cmd->qyt}}</td>
+<td class="right">{{ $cmd->qt * $cmd->prix }}</td>
 </tr>
 @endforeach
 </tbody>
@@ -104,18 +104,7 @@
 <table class="table table-clear">
 <tbody>
 <tr>
-<!-- <td class="left">
-<strong class="text-dark">Subtotal</strong>
-</td>
-<td class="right">$28,809,00</td>
-</tr>
-<tr>
-<td class="left">
-<strong class="text-dark">TAX (18%)</strong>
-</td>
-<td class="right">$2,304,00</td>
-</tr>
-<tr> -->
+
 <td class="left">
 <strong class="text-dark">Total</strong>
  </td>
@@ -128,7 +117,7 @@
 </div>
 </div>
 <div class="row">
-    <form action="{{ route('cmd.update',$cmd->clientid) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cmd.update',$cmd->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     <button  class="btn btn-block btn-success">

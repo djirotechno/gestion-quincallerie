@@ -21,6 +21,7 @@ class CartController extends Controller
             'name' => $request->name,
             'price' => $request->prix,
             'quantity' => $request->quantity,
+          
            
         ]);
 

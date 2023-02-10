@@ -25,7 +25,9 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-fix bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'QRT') }}
+             
+                    <img src="/image/logo.jpg" alt="logo" srcset="" style="width:100px">
+           
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

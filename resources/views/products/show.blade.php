@@ -28,7 +28,7 @@
                                 <input type="hidden" value="{{ $product->prix }}" name="prix">
                                 <input type="hidden" value="{{ $product->detail}}"  name="detail">
                                 <input type="hidden" value="1" name="quantity">
-                                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro</button>
+                                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Ajouter</button>
                     
                                
                             </form>
