@@ -22,16 +22,11 @@ Route::get('/', [App\Http\Controllers\ProductController::class,'index'] )->name(
 Route::get('/Admin00221', function () {
     return view('auth.login');
 });
+Route::get('qt',[App\Http\Controllers\CommandeController::class , 'qt']);
+
 
 Route::group(['middleware' => ['auth','admin']], function () {
-Route::delete('/admindelete/{id}', [App\Http\Controllers\AdminController::class,'destroy'] )->name('admin.destroy');
-Route::get('/admincreate', [App\Http\Controllers\AdminController::class,'create'] )->name('admin.create');
-Route::get('/adminedit/{id}', [App\Http\Controllers\AdminController::class,'edit'] )->name('admin.edit');
-Route::get('/adminshow/{id}', [App\Http\Controllers\AdminController::class,'show'])->name('admin.show');
-
-Route::get('admin', [App\Http\Controllers\AdminController::class ,'index'])->name('admin.index');
-Route::post('adminstore', [App\Http\Controllers\AdminController::class,'store'] )->name('admin.store');
-Route::put('adminupdate', [App\Http\Controllers\AdminController::class,'update'] )->name('admin.update');
+Route::resource('admin', App\Http\Controllers\AdminController::class);
 
 Route::get('/cmdliste',[App\Http\Controllers\CommandeController::class , 'index'])->name('cmd.index');
 Route::get('/cmd/{id}',[App\Http\Controllers\CommandeController::class , 'show'])->name('cmd.show');
@@ -52,12 +47,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // ROUTE CLIENT----------------------------------------------------------------
-// Route::resource('clients', App\Http\Controllers\ClientController::class );
+Route::resource('clients', App\Http\Controllers\ClientController::class );
 
-// Route::get('/clientslogin',[App\Http\Controllers\ClientController::class , 'index'])->name('clientslogin');
-
-// Route::post('/loginclients',[App\Http\Controllers\ClientController::class , 'loginclients'])->name('loginclients');
-
+// ROUTE CLIENT-AUTH ----------------------------------------------------------------
 Route::get('login-client', [App\Http\Controllers\AuthController::class, 'index'])->name('login-client');
 
 Route::post('post-login', [App\Http\Controllers\AuthController::class, 'postLogin'])->name('login.post'); 
@@ -69,9 +61,6 @@ Route::post('post-registration', [App\Http\Controllers\AuthController::class, 'p
 Route::get('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 // ROUTE CLIENT----------------------------------------------------------------
 
-
-
-//Route::get('/clientslogin',[App\Http\Controllers\ClientController::class , 'login'])->name('clientslogin');
 
 
 

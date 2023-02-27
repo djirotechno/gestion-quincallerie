@@ -55,13 +55,12 @@
 
         <tr>
 
-            <th>Prenom</th>
-
+            <th>Id</th>
             <th>Nom</th>
-
             <th>Email</th>
             <th>Adresse</th>
             <th>Tel</th>
+            <th>Role</th>
 
             <th width="280px">Action</th>
 
@@ -72,12 +71,11 @@
         <tr>
 
             <td>{{ $client->id }}</td>
-
-            <td>{{ $client->prenom }}</td>
-            <td>{{ $client->nom }}</td>
+            <td>{{ $client->name}}</td>
             <td>{{ $client->email }}</td>
             <td>{{ $client->adresse }}</td>
             <td>{{ $client->tel }}</td>
+            <td>{{ $client->role }}</td>
              
             <td>
 

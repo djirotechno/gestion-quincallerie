@@ -180,12 +180,7 @@ class ProductController extends Controller
 
         ]);
 
-  
-
         $input = $request->all();
-
-  
-
         if ($image = $request->file('image')) {
 
             $destinationPath = 'image/';

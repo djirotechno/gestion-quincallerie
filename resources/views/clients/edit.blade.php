@@ -60,14 +60,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
 
-            <div class="form-group">
-
-                <strong>Prenom:</strong>
-
-                <input type="text" name="prenom" value="{{ $client->prenom }}" class="form-control"
-                    placeholder="Prenom">
-
-            </div>
+         
 
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -76,7 +69,7 @@
 
                 <strong>Nom:</strong>
 
-                <input type="text" name="nom" value="{{ $client->nom }}" class="form-control" placeholder="Nom">
+                <input type="text" name="name" value="{{ $client->name }}" class="form-control" placeholder="Nom">
 
             </div>
 
@@ -109,6 +102,17 @@
                 <strong>Tel:</strong>
 
                 <input type="number" name="tel" value="{{ $client->tel }}" class="form-control" placeholder="Tel">
+
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group">
+
+                <strong>Tel:</strong>
+
+                <input type="text" name="role" value="{{ $client->role }}" class="form-control" placeholder="Role">
 
             </div>
 

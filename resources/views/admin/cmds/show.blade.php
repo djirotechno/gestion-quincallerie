@@ -86,20 +86,23 @@
 <tbody>
 @foreach ($cmduser as $cmd)
 <tr>
-<td class="center">{{$cmd->idprod}}</td>
-<td class="left">{{ $cmd->name }}</td>
-<td class="left">{{ $cmd->detail}}</td>
-<td class="right">{{$cmd->prix}}</td>
-<td class="center">{{ $cmd->qt}}</td>
-<td class="right">{{ $cmd->qt * $cmd->prix }}</td>
+    @if ($cmd->statut === 0)
+    <td class="center">{{$cmd->idprod}}</td>
+    <td class="left">{{ $cmd->name }}</td>
+    <td class="left">{{ $cmd->detail}}</td>
+    <td class="right">{{$cmd->prix}}</td>
+    <td class="center">{{ $cmd->qt}}</td>
+    <td class="right">{{ $cmd->qt * $cmd->prix }}</td>
+ 
+    @endif
+
 </tr>
 @endforeach
 </tbody>
 </table>
 </div>
 <div class="row">
-<div class="col-lg-8 col-sm-5">
-</div>
+
 <div class="col-lg-4 col-sm-5 ml-auto">
 <table class="table table-clear">
 <tbody>
@@ -109,7 +112,10 @@
 <strong class="text-dark">Total</strong>
  </td>
 <td class="right">
+    @if ($cmd->statut === 0)
 <strong class="text-dark">{{$cmd->qyt}}</strong>
+@endif
+
 </td>
 </tr>
 </tbody>
@@ -120,9 +126,12 @@
     <form action="{{ route('cmd.update',$cmd->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     
+    @if ($cmd->statut === 0)
     <button  class="btn btn-block btn-success">
-    <strong >Valider</strong>
-    </button>
+        <strong >Valider</strong>
+        </button>
+    @endif
+  
     </form>
   
 </div>

@@ -84,6 +84,9 @@
                                     <a class="dropdown-item" href="{{ route('cmd.index') }}">
                                        Commandes
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('clients.index') }}">
+                                      Utilisateur
+                                    </a>
                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('products.index') }}">

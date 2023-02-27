@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Response;
 use App\Models\Client;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     public function index() {
-        $clients = Client::latest()->paginate(20);
+        $clients = User::latest()->paginate(20);
         //dd($clients);
         return view("clients.index" , compact('clients'))->with('i', (request()->input('page', 1) - 1) * 5);
 
@@ -44,68 +46,32 @@ class ClientController extends Controller
 
     }
 
-    public function show(Client $client)
+    public function show($id)
 
     {
+        $client = User::findOrFail($id);
 
         return view('clients.show',compact('client'));
 
     }
 
-    public function edit(Client $client)
+    public function edit($id)
 
     {
+        $client = User::findOrFail($id);
 
         return view('clients.edit',compact('client'));
 
     }
 
-    public function update(Request $request, Client $client)
-
+    public function update(Request $request,$id)
     {
-
-        $request->validate([
-
-            'prenom' => 'required',
-            'nom' => 'required',
-            'email' => 'required',
-            'adresse' => 'required',
-            'tel' => 'required',
-
-        ]);
-
-  
-
-        $input = $request->all();
-
-  
-
-        // if ($image = $request->file('image')) {
-
-        //     $destinationPath = 'image/';
-
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-
-        //     $image->move($destinationPath, $profileImage);
-
-        //     $input['image'] = "$profileImage";
-
-        // }else{
-
-        //     unset($input['image']);
-
-        // }
-
-          
-
-        $client->update($input);
-
-    
-
-        return redirect()->route('clients.index')
-
-                        ->with('success','client updated successfully');
-
+      
+        $user = User::find($id);
+        $user->update($request->all());
+           
+        return redirect()->route('clients.index')->with('success','client update successfully.');
+      
     }
 
      public function login() {

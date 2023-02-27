@@ -233,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Helper' => App\Helpers\Helper::class,
 
     ],
 

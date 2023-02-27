@@ -159,47 +159,13 @@ class AdminController extends Controller
 
     */
 
-   public function update(Request $request, Product $product)
+   public function update(Request $request,$id)
 
    {
 
-       $request->validate([
-
-           'name' => 'required',
-
-           'detail' => 'required',
-           'prix' => 'required'
-
-       ]);
-
- 
-
-       $input = $request->all();
-
- 
-
-       if ($image = $request->file('image')) {
-
-           $destinationPath = 'image/';
-
-           $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-
-           $image->move($destinationPath, $profileImage);
-
-           $input['image'] = "$profileImage";
-
-       }else{
-
-           unset($input['image']);
-
-       }
-
-         
-
-       $product->update($input);
-
-   
-
+    $prod = Product::find($id);
+  
+    $prod->update($request->all());
        return redirect()->route('admin.index')->with('success','Product updated successfully');
 
    }

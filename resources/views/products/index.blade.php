@@ -34,7 +34,12 @@
                         <div class="card h-100">
                             
                             <span style="text-align:center">
-                            stock: {{$product->qt}}
+                                @if($product->qt < 0)
+                                stock: {{$product->qt - $product->qt}}
+                                @else
+                                stock: {{$product->qt}}
+
+                                @endif
                             </span>
 <hr>
                             <!-- Product image-->

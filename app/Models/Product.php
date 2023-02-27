@@ -7,8 +7,20 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
 
-        'name', 'detail', 'image','prix','qt'
+        'name', 'detail', 'image','prix','qt','cmd_id'
 
     ];
+
+
+
+    public function commande()
+
+    {
+
+        return $this->belongsTo(Commande::class);
+
+    }
+
+    
 
 }

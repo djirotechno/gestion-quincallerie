@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Commande;
 use App\Models\Product;
-
+use Helper;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -47,23 +47,33 @@ class CommandeController extends Controller
     {
         $user = Auth::user();
         $items = \Cart::getContent();
-        // $total = \Cart::getTotal();
-        //  dd($items);
+        $total = $request->qyt;
+        $stock = new Helper();
+        // $total = Commande::where('user_id',$user->id)->sum('qt');
         foreach($items as $row) {
+       
+        // dd($total);
 
-            Commande::create([
-                'qt' => (int)$row->quantity,
-                'name' => $row->name,
-                'detail' => $row->detail,
-                'idprod' => $row->id,
-                'prix' => $row->price,
-                'user_id' => $user->id,
-                'adresse' => $user->adresse,
-                'tel' => $user->tel,
-                'qyt' => \Cart::getTotal(),
-                
-               
-            ]);
+            $qty = $stock::geststock((int)$row->quantity);
+            if($qty === false){
+                Commande::create([
+                    'qt' => (int)$row->quantity,
+                    'name' => $row->name,
+                    'detail' => $row->detail,
+                    'idprod' => $row->id,
+                    'prix' => $row->price,
+                    'user_id' => $user->id,
+                    'adresse' => $user->adresse,
+                    'tel' => $user->tel,
+                    'qyt' => $total,
+                    
+                   
+                ]);
+            }else{
+        return redirect()->route('cart.list')->with('success','stock insuffisante!');
+
+            }
+          
         }
            
        
@@ -80,6 +90,9 @@ class CommandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function show($id)
     {
        
@@ -111,19 +124,39 @@ class CommandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id,)
-    {
-        $cmdtable = Commande::all();
-        foreach($cmdtable as $cmd){
-            $cmdvalide =   Commande::where($cmd->id,$id);
-            // dd($cmdvalide->id);
-            $cmdvalide->update(['statut'=> 1]);
-        }
-     ;
 
-        // dd($cmd);
-        // $cmdvalide =   Product::where('id',$id);
-        // $tabcmd = Product::latest()->get(); as
+
+ 
+
+// public function Stock(Request $request, $id)
+// {
+//     $product = Product::find($id);
+//     $quantity = $request->input('quantity');
+//     $product->updateStock($id, $quantity);
+//     return redirect()->back()->with('success', 'Stock updated successfully');
+// }
+
+
+
+    public function update($id)
+    {
+         
+
+        $stock = new Helper();
+
+            $cmdtable = Commande::all();
+            $product = Product::all();
+
+            foreach($cmdtable as $cmd){
+                $prod = Product::where('id',$cmd->idprod)->get();
+                // dd($prod);
+                $cmdvalide =   Commande::where($cmd->id,$id);
+                $cmdvalide->update(['statut'=> 1]);
+                // updateStock($prod->id,);
+            }
+            
+            $stock::updateStock($cmdtable, $product);
+      
 
         return redirect()->route('cmd.index')->with('success','commande  validee !');
 
@@ -131,7 +164,7 @@ class CommandeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

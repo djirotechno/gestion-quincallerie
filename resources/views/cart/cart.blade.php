@@ -6,6 +6,27 @@
 
 
         <section class="h-100" style="background-color: #eee;">
+
+
+          @if ($message = Session::get('success'))
+
+          <div class="alert alert-info">
+  
+              <p>{{ $message }}</p>
+  
+          </div>
+  
+      @endif
+
+          @if ($message = Session::get('error'))
+
+          <div class="alert alert-info">
+  
+              <p>{{ $message }}</p>
+  
+          </div>
+  
+      @endif
   <div class="h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
@@ -27,7 +48,7 @@
                     <form action="{{ route('cart.update') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $item->id}}" >
-                        <input class="form-control form-control-sm" type="number" name="quantity" value="{{ $item->quantity }}" >
+                        <input class="form-control form-control-sm" type="text" name="quantity" value="{{ $item->quantity }}" >
                         <br>
                         <button type="submit" class="btn btn-info">update</button>
                     </form>
@@ -55,12 +76,13 @@
         @endforeach
         <div class="card">
           <div class="card-body">
+          
          <strong>Total: {{ Cart::getTotal() }}</strong>
           </div>
           <hr>
           <form action="{{ route('cmd.store') }}" method="POST">
               @csrf
-            
+              <input type="number" name="qyt" value="{{Cart::getTotal() }}" hidden>
               <input type="number" name="user"  value={{Auth::user()->id}} hidden>
          
               <button type="submit" class="btn btn-warning btn-block ">Commander</button>

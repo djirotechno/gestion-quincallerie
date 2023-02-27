@@ -26,6 +26,7 @@ class CreateCommandesTable extends Migration
             $table->integer('idprod');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
+           
         });
     }
 
