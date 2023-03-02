@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Product;
 
 class CartController extends Controller
 {
@@ -24,6 +25,8 @@ class CartController extends Controller
           
            
         ]);
+
+      
 
         session()->flash('success', 'Product is Added to Cart Successfully !');
 

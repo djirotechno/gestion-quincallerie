@@ -46,6 +46,7 @@ class CommandeController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $userid = $request->user;
         $items = \Cart::getContent();
         $total = $request->qyt;
         $stock = new Helper();
@@ -62,14 +63,19 @@ class CommandeController extends Controller
                     'detail' => $row->detail,
                     'idprod' => $row->id,
                     'prix' => $row->price,
-                    'user_id' => $user->id,
+                    'user_id' => $userid,
                     'adresse' => $user->adresse,
                     'tel' => $user->tel,
                     'qyt' => $total,
                     
                    
                 ]);
+         
+                    $prod = Product::find($row->id);
+                    $prod->update(['qt' => $prod->qt - $row->quantity]);
+                
             }else{
+
         return redirect()->route('cart.list')->with('success','stock insuffisante!');
 
             }
@@ -139,23 +145,22 @@ class CommandeController extends Controller
 
 
     public function update($id)
-    {
-         
+    {    
+        // dd($id);
+        $cmdtable = Commande::all();
+    
+        foreach( $cmdtable as $cmd){
+            $user = $cmd::where('user_id',$id);
+            if($cmd->statut == 0){
+                $user->update(['statut'=> 1]);
 
-        $stock = new Helper();
-
-            $cmdtable = Commande::all();
-            $product = Product::all();
-
-            foreach($cmdtable as $cmd){
-                $prod = Product::where('id',$cmd->idprod)->get();
-                // dd($prod);
-                $cmdvalide =   Commande::where($cmd->id,$id);
-                $cmdvalide->update(['statut'=> 1]);
-                // updateStock($prod->id,);
             }
+
+        }
+          
+                
             
-            $stock::updateStock($cmdtable, $product);
+
       
 
         return redirect()->route('cmd.index')->with('success','commande  validee !');

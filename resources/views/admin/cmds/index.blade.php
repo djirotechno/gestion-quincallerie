@@ -173,7 +173,7 @@
                     @csrf
 
                     @method('DELETE')
-                    <a class="btn btn-info" href="{{ route('cmd.show',$client->id) }}">Voir</a>
+                    <a class="btn btn-info" href="{{ route('cmd.show',$client->user_id) }}">Voir</a>
                @if(Auth::user()->role == 'admin')
 
                     <button type="submit" class="btn btn-danger">Supp</button>

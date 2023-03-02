@@ -123,7 +123,7 @@
 </div>
 </div>
 <div class="row">
-    <form action="{{ route('cmd.update',$cmd->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cmd.update',$cmd->user_id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     @if ($cmd->statut === 0)
